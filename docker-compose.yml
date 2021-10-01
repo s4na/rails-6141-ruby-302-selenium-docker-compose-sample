@@ -1,0 +1,25 @@
+version: '3.1'
+
+services:
+  web:
+    build: .
+    environment:
+      - SELENIUM_HOST=selenium
+      - SELENIUM_PORT=4444
+      - TEST_APP_HOST=web
+      - TEST_PORT=3001
+    volumes:
+      - bundle_cache:/bundle
+      - .:/app
+    stdin_open: true
+    tty: true
+
+  selenium:
+    image: selenium/standalone-chrome-debug:3.0.1-germanium
+    logging:
+      driver: none
+    stdin_open: true
+    tty: true
+
+volumes:
+  bundle_cache:
